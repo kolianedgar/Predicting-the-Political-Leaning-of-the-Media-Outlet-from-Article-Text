@@ -1,10 +1,86 @@
+"""
+Cross-validation and evaluation utilities for political article classification.
+
+This module provides:
+- standard stratified cross-validation
+- grouped/source-aware cross-validation
+- final held-out test evaluation
+- confusion matrix collection
+- fold-level metric tracking
+
+Grouped cross-validation is used to reduce outlet/source leakage
+by ensuring articles from the same source are not shared across
+training and evaluation folds.
+
+Supported classifiers are defined centrally in:
+    src.models.get_models()
+"""
+
 from sklearn.model_selection import StratifiedKFold, StratifiedGroupKFold
 from src.models import get_models
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import numpy as np
 from src.utils import safe_counts
 
-def run_cv(builder, name, texts, y, groups=None, grouped=False):
+def run_cv(
+        builder,
+        name,
+        texts,
+        y,
+        groups=None,
+        grouped=False
+    ):
+
+    """
+    Run cross-validation experiments using the provided feature builder.
+
+    Supports:
+    - standard stratified cross-validation
+    - grouped/source-aware cross-validation
+
+    Parameters
+    ----------
+    builder : callable
+        Feature builder function that returns:
+            (X_train, X_test)
+
+    name : str
+        Name of the feature configuration or experiment.
+
+    texts : array-like
+        Input article texts.
+
+    y : array-like
+        Binary classification labels.
+
+    groups : array-like, optional
+        Source/outlet group labels used for grouped evaluation.
+
+    grouped : bool, default=False
+        Whether to use source-aware grouped cross-validation.
+
+    Returns
+    -------
+    tuple
+        (
+            fold_results,
+            summary,
+            cms_lr,
+            cms_svc
+        )
+
+    fold_results : list
+        Per-fold evaluation statistics.
+
+    summary : dict
+        Aggregate mean/std accuracy metrics.
+
+    cms_lr : list
+        Logistic Regression confusion matrices.
+
+    cms_svc : list
+        Linear SVC confusion matrices.
+    """
 
     if grouped:
         splitter = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)
@@ -88,9 +164,63 @@ def run_cv(builder, name, texts, y, groups=None, grouped=False):
 
     return fold_results, summary, cms_lr, cms_svc
 
-from sklearn.metrics import classification_report
+def run_test(
+        builder,
+        name,
+        X_train_text,
+        X_test_text,
+        y_train,
+        y_test
+    ):
 
-def run_test(builder, name, X_train_text, X_test_text, y_train, y_test):
+    """
+    Run final held-out test evaluation.
+
+    This function:
+    - builds train/test features
+    - trains all configured models
+    - evaluates final test performance
+    - prints classification reports
+    - returns confusion matrices and metrics
+
+    Parameters
+    ----------
+    builder : callable
+        Feature builder function.
+
+    name : str
+        Experiment or feature configuration name.
+
+    X_train_text : array-like
+        Training article texts.
+
+    X_test_text : array-like
+        Test article texts.
+
+    y_train : array-like
+        Training labels.
+
+    y_test : array-like
+        Test labels.
+
+    Returns
+    -------
+    tuple
+        (
+            metrics,
+            cm_lr,
+            cm_svc
+        )
+
+    metrics : dict
+        Final test accuracy metrics.
+
+    cm_lr : numpy.ndarray
+        Logistic Regression confusion matrix.
+
+    cm_svc : numpy.ndarray
+        Linear SVC confusion matrix.
+    """
 
     print(f"\n===== FINAL TEST: {name} =====")
 
