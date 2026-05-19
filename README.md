@@ -34,9 +34,7 @@ Implemented classifiers:
 # Repository Structure
 
 ```text
-project/
-│
-├── data/
+│ data/
 │   ├── left/
 │       ├── alter-net/
 │          └── alternet_final.json
