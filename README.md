@@ -1,7 +1,5 @@
 # Predicting the Political Leaning of the Media Outlet from Article Text
 
-# Political Article Classification Framework
-
 A reproducible NLP framework for article-level political classification using classical machine learning, linguistic feature engineering, and semantic embeddings.
 
 The project supports:
