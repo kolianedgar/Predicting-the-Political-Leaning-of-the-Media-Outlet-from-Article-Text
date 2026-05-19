@@ -11,7 +11,7 @@ The project supports:
 
 ---
 
-# Features
+## Features
 
 Implemented feature extraction methods include:
 
@@ -29,7 +29,7 @@ Implemented classifiers:
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 ```text
 ├── data/
@@ -105,7 +105,7 @@ Implemented classifiers:
 
 ---
 
-# Data Collection Utilities
+## Data Collection Utilities
 
 The repository also includes archival scraping notebooks used during the original dataset construction process.
 
@@ -130,7 +130,7 @@ Note:
 
 ---
 
-# Dataset Notes
+## Dataset Notes
 
 The repository does not include copyrighted article bodies.
 
@@ -152,7 +152,7 @@ The full experimentation pipeline is designed to operate on externally supplied 
 
 ---
 
-# External Full-Text Datasets
+## External Full-Text Datasets
 
 The framework is designed to support externally supplied full-text datasets.
 
@@ -165,9 +165,9 @@ Other compatible datasets can also be used if they provide:
 
 ---
 
-# Installation
+## Installation
 
-## 1. Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone <repository-url>
@@ -176,7 +176,7 @@ cd <repository-name>
 
 ---
 
-## 2. Create Virtual Environment (Recommended)
+### 2. Create Virtual Environment (Recommended)
 
 ```bash
 python3 -m venv venv
@@ -191,7 +191,7 @@ venv\Scripts\activate
 
 ---
 
-## 3. Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -199,7 +199,7 @@ pip install -r requirements.txt
 
 ---
 
-## 4. Download spaCy Model
+### 4. Download spaCy Model
 
 ```bash
 python3 -m spacy download en_core_web_sm
@@ -207,9 +207,9 @@ python3 -m spacy download en_core_web_sm
 
 ---
 
-# Running Experiments
+## Running Experiments
 
-## Run Main Pipeline
+### Run Main Pipeline
 
 The primary experiment workflow can be executed using:
 
@@ -233,7 +233,7 @@ depending on your Python environment.
 
 ---
 
-# What `main.py` Does
+## What `main.py` Does
 
 The pipeline:
 - loads and prepares the AG News dataset
@@ -246,7 +246,7 @@ The pipeline:
 
 ---
 
-# Default Experiments
+## Default Experiments
 
 Enabled by default:
 
@@ -257,7 +257,7 @@ These configurations are lightweight and suitable for standard execution environ
 
 ---
 
-# Optional Advanced Experiments
+## Optional Advanced Experiments
 
 The following feature pipelines are implemented but commented out by default:
 
@@ -277,7 +277,7 @@ by uncommenting the corresponding experiment definitions.
 
 ---
 
-# Running the Notebook Workflow
+## Running the Notebook Workflow
 
 The notebook workflow is located in:
 
@@ -294,7 +294,7 @@ The notebook demonstrates:
 
 ---
 
-# Outputs
+## Outputs
 
 Generated experiment results are saved to:
 
@@ -308,7 +308,7 @@ Example outputs:
 
 ---
 
-# Cross-Validation
+## Cross-Validation
 
 The framework supports:
 - standard stratified cross-validation
@@ -318,21 +318,21 @@ Grouped evaluation helps reduce source leakage by ensuring articles from the sam
 
 ---
 
-# Feature Engineering Overview
+## Feature Engineering Overview
 
-## TF-IDF
+### TF-IDF
 
 Sparse lexical unigram/bigram features.
 
 ---
 
-## TF-IDF + NMF
+### TF-IDF + NMF
 
 Combines lexical TF-IDF features with topic representations extracted using Non-negative Matrix Factorization.
 
 ---
 
-## Full Linguistic Features
+### Full Linguistic Features
 
 Combines:
 - POS tag distributions
@@ -341,7 +341,7 @@ Combines:
 
 ---
 
-## Sentence Embeddings
+### Sentence Embeddings
 
 Dense semantic document embeddings generated using:
 
@@ -351,7 +351,7 @@ all-MiniLM-L6-v2
 
 ---
 
-## Chunked Embeddings
+### Chunked Embeddings
 
 Long documents are divided into chunks and embedded separately before averaging.
 
@@ -368,7 +368,7 @@ to improve reproducibility across runs.
 
 ---
 
-# Supported Use Cases
+## Supported Use Cases
 
 The framework is designed for:
 - political article classification
@@ -379,7 +379,7 @@ The framework is designed for:
 
 ---
 
-# Future Extensions
+## Future Extensions
 
 Potential future improvements include:
 - multi-class classification
@@ -392,13 +392,13 @@ Potential future improvements include:
 
 ---
 
-# Author
+## Author
 
 - Edgar Kolian (https://github.com/kolianedgar)
 
 ---
 
-# License
+## License
 
 This repository is provided for research and educational purposes.
 
